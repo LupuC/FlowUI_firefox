@@ -1,3 +1,16 @@
+# Welcome to my fork of FrameUIforFirefox!
+Here's the current look and issues:
+1. Popup search (`uc.tweak.popup-search`) fully take up the screen length (somehow adding `left: 20vh !important` and `right: 20vh !important;` doesn't worked, only `margin-left` worked. `padding-left` and `padding-right` worked, but that doesn't applied to the urlbar box itself.
+![Searchbar](https://github.com/KiKaraage/FrameUIforFirefox/assets/10529881/a71b77da-48bf-4835-9a2e-65ef87c49b82)
+
+2. Custom icons I applied seems to clashed with the applied menu UI and right-click context menu.
+![Menu UI](https://github.com/KiKaraage/FrameUIforFirefox/assets/10529881/3f2d463b-030d-49f3-b3d1-2eab8239c075)
+![gambar](https://github.com/KiKaraage/FrameUIforFirefox/assets/10529881/f7efd40d-a58e-4b83-a180-206394647ad4)
+
+Also I decided to make the sidebar toggled manually, so you don't have to see 6px bar sticking at the left side. You can assign keyboard shortcut for faster switching. Here's the current look. Use [sidebery-css-style](https://github.com/KiKaraage/ArcWTF/blob/main/sidebery-css-style) code from my ArcWTF repo as the Sidebery code setup.
+![gambar](https://github.com/KiKaraage/FrameUIforFirefox/assets/10529881/9345758f-1c10-4687-b74b-0672ef70698a)
+
+
 # Codename: FrameUI For Firefox
 A new way to view your web content, like looking at photos printed from an old Polaroid camera.
 
