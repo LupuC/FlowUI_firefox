@@ -1,3 +1,6 @@
+@import url("icons/icons.css");
+@import url("popup-search.css");
+
 /* make theming work */
 #navigator-toolbox {
   --toolbar-bgcolor: transparent;
@@ -249,6 +252,8 @@ See the above repository for updates as well as full license text. */
 /*   background: purple !important; */
 }
 
+#nav-bar .toolbarbutton-icon {scale: 0.85;}
+
 #PersonalToolbar {
   background: transparent !important;
   order: -1;
@@ -273,92 +278,426 @@ See the above repository for updates as well as full license text. */
 
 /* ============================================================ */
 
-/* ======= =sidebar hover hack =======*/
-/* hide sidebar header so vertical tabs look native */
-#sidebar-header{ display: none }
-/* ======================================================================= */
+/* Variables */
+:root {
+  --urlbar-min-height: 24px !important;
+  --urlbarView-item-inline-padding: calc(1px + var(--uc-urlbar-inline-padding) + var(--uc-urlbar-icon-inline-padding)) !important;
+  --urlbar-icon-border-radius: 99px !important;
+  --urlbar-icon-padding: calc(var(--toolbarbutton-inner-padding) - 2px) !important;
+  --urlbar-margin-inline: 2px !important;
+  --identity-box-margin-inline: 6px !important;
+  --uc-urlbar-icon-inline-padding: 2px !important;
+  --uc-urlbar-inline-padding: 6px;
+  --uc-urlbar-shadow: 0 0 0px rgb(0 0 0 / .1);
+   --urlbarView-rich-suggestion-default-icon-size: 32px !important;
 
-#sidebar-box{
-  --uc-sidebar-width: 35px;
-  --uc-sidebar-hover-width: 210px;
-  --uc-autohide-sidebar-delay: 600ms; /* Wait 0.6s before hiding sidebar */
-  --uc-autohide-transition-duration: 115ms;
-  --uc-autohide-transition-type: linear;
-  position: relative;
-  min-width: var(--uc-sidebar-width) !important;
-  width: var(--uc-sidebar-width) !important;
-  max-width: var(--uc-sidebar-width) !important;
-  z-index:1;
+  /* urlbar height */
+  & #urlbar-container {
+    --urlbar-container-height: calc(8px + 16px + var(--toolbarbutton-inner-padding) * 2) !important;
+  }
+
+  & #urlbar {
+    --urlbar-toolbar-height: calc(5px + 16px + var(--toolbarbutton-inner-padding) * 2) !important;
+    --urlbar-height: calc(16px + var(--toolbarbutton-inner-padding) * 2) !important;
+    --urlbar-min-height: calc(16px + var(--toolbarbutton-inner-padding) * 2) !important;
+    font-size: 1em !important;
+  }
+
+  /* Spacing for urlbar suggestion icons. */
+  .urlbarView-row {
+    --urlbarView-icon-margin-start: 0px !important;
+    --urlbarView-icon-margin-end: calc(var(--uc-urlbar-icon-inline-padding) + var(--identity-box-margin-inline)) !important;
+  }
 }
 
-#sidebar-box[positionend]{ direction: rtl }
-#sidebar-box[positionend] > *{ direction: ltr }
+/* Appearance for URL bar. */
+#urlbar-background,
+#searchbar {
+  border-radius: calc(var(--urlbar-icon-border-radius) + 2px) !important;
+  border-color: transparent !important;
 
-#sidebar-box[positionend]:-moz-locale-dir(rtl){ direction: ltr }
-#sidebar-box[positionend]:-moz-locale-dir(rtl) > *{ direction: rtl }
+  /* Shadow for URL bar, only appears in light mode. */
+  :root:not(:-moz-lwtheme) #nav-bar:not([brighttext]) & {
+    box-shadow: var(--uc-urlbar-shadow, none);
+  }
 
-#main-window[sizemode="fullscreen"] #sidebar-box{ --uc-sidebar-width: 1px; }
+  /* Appearance when the URL bar is expanded. */
+  #urlbar[open] & {
+    border-radius: 8px !important;
+    border-color: transparent !important;
+    outline: 0px solid var(--arrowpanel-border-color) !important;
 
-#sidebar-splitter{ display: none }
+    &:not(:-moz-lwtheme) {
+      outline-color: transparent !important;
+    }
+  }
+}
 
-#sidebar-header{
+/* Add padding to sides of URL bar. */
+#urlbar-input-container,
+#searchbar {
+  padding-inline: var(--uc-urlbar-inline-padding) !important;
+}
+
+#urlbar #urlbar-input {text-align: center !important}
+#urlbar-background {background: transparent !important;}
+#urlbar[focused="true"] > #urlbar-background {background: var(--arrowpanel-background) !important;}
+
+/* URL bar suggestions container. */
+.urlbarView {
+  margin-top: 2px !important;
+  margin-inline: 0 !important;
+  width: 100% !important;
+  border-inline: 0 !important;
+  padding-block: 0 !important;
+  background: var(--arrowpanel-background) !important;
+  border-radius: 0 0 8px 8px !important;
+
+
+  & .urlbarView-body-inner {
+    width: 100% !important;
+    margin-inline: 0 !important;
+  }
+
+  /* Remove padding from top of URL bar results, not needed as URL bar input already has padding. */
+  & .urlbarView-results {
+    padding-block-start: 0 !important;
+  }
+}
+
+/* URL bar item. */
+.urlbarView-row {
+  padding-block: 0 !important;
+  border: none !important;
+  border-radius: 8px !important;
+  margin-inline: 2px !important;
+  
+  /* Vertically align search suggestion thumbnail images. */
+  &[rich-suggestion] > .urlbarView-row-inner > .urlbarView-favicon {
+    margin-inline-start: calc(var(--urlbarView-icon-margin-start) + (16px - var(--urlbarView-rich-suggestion-default-icon-size)) / 2) !important;
+    margin-inline-end: calc(var(--urlbarView-icon-margin-end) + (16px - var(--urlbarView-rich-suggestion-default-icon-size)) / 2) !important;
+  }
+}
+
+/* Keep URL bar in place when expanding. */
+#urlbar[breakout][breakout-extend] {
+  left: 0 !important;
+  width: 100% !important;
+}
+
+/* Search engine selector */
+.search-one-offs:not([hidden]) {
+  padding-block: 6px !important;
+
+  & .searchbar-engine-one-off-item {
+    min-width: 30px !important;
+    height: 30px !important;
+  }
+
+  .urlbarView:not([noresults]) > & {
+    border-color: var(--urlbarView-separator-color) !important;
+  }
+
+  #urlbar-anon-search-settings {
+    margin-inline-end: 8px !important;
+  }
+}
+
+/* Search engine indicator. */
+#urlbar-search-mode-indicator {
+  :root:not(:-moz-lwtheme) & {
+    background-color: var(--urlbar-box-hover-bgcolor) !important;
+  }
+
+  & #urlbar-search-mode-indicator-title {
+    font-size: 0.9em !important;
+  }
+}
+
+/* Remove border between URL bar input and suggestions. */
+#urlbar[open] > .urlbarView > .urlbarView-body-outer > .urlbarView-body-inner {
+  border-top: 0 !important;
+  align: center !important;
+}
+
+/* Buttons inside the URL bar. */
+.urlbar-page-action,
+#urlbar-go-button,
+.search-go-button,
+#tracking-protection-icon-container,
+#identity-icon-box {
+  padding-inline: var(--uc-urlbar-icon-inline-padding) !important;
+  width: calc(var(--uc-urlbar-icon-inline-padding) * 2 + 16px) !important;
+}
+
+/* Site information and Permissions buttons. */
+#identity-icon-box,
+#identity-permission-box,
+.notification-anchor-icon {
+  padding-inline: var(--uc-urlbar-icon-inline-padding) !important;
+}
+
+/* Zoom level and tab container indicators. */
+#userContext-icons,
+#urlbar-zoom-button {
+  padding-inline: var(--uc-urlbar-icon-inline-padding) !important;
+  margin-block: 0 !important;
+  margin-inline: 0 !important;
+  visibility: collapse !important;
+}
+
+/* Move tracking protection button. */
+#tracking-protection-icon-container,
+#page-action-buttons {
+  order: 2 !important;
+}
+
+/* Show translation button on URL bar. */
+#translation-button {
+   hidden: false !important;
+   display: flex !important;
+   }
+
+
+/* Pin icon for URL bar suggested sites. */
+.urlbarView-row[pinned] > .urlbarView-row-inner > .urlbarView-no-wrap > .urlbarView-type-icon {
+  fill: var(--toolbar-field-color) !important;
+}
+
+#urlbar-input::placeholder,
+.searchbar-textbox::placeholder {
+  opacity: 0.6 !important;
+}
+
+/* Make the lock icon brighter in dark mode. */
+#nav-bar[brighttext] #identity-box:not([pageproxystate="invalid"]) #identity-icon {
+  fill-opacity: calc(var(--urlbar-icon-fill-opacity) * 1.8) !important;
+}
+
+/* Make the URL bar label opaque in light mode, matching the icons. */
+#nav-bar:not([brighttext]) #identity-box #identity-icon-label {
+  opacity: var(--urlbar-icon-fill-opacity) !important;
+}
+
+/* Label on the left of the URL bar, shown when viewing Firefox or extension pages. */
+#identity-box[pageproxystate="valid"]:is(.notSecureText, .chromeUI, .extensionPage) > .identity-box-button {
+  position: relative;
+  width: unset !important;
+
+  /* Spacing between the icon and label. */
+  & #identity-icon-label {
+  visibility: collapse !important;
+  }
+
+  /* Separator to the right of the label. */
+  &::after {
+    content: "";
+    position: absolute;
+    height: 16px;
+    border-right: 0px solid currentColor;
+    right: 0;
+    inset-block: 0;
+    margin-block: auto;
+    opacity: 0;
+  }
+
+  /* Fractional scaling adjustments (150%, 175%, etc.) */
+  @media (1dppx < resolution < 2dppx) {
+    &::after {
+      border-right-width: 1.5px !important;
+    }
+  }
+
+  /* Remove background from urlbar box. */
+  &:not(:hover, [open]) {
+    background-color: transparent !important;
+
+    /* Separator opacity */
+    &::after {
+      opacity: 0;
+    }
+  }
+
+  /* Fade transition for separator. */
+  @media not (prefers-reduced-motion) {
+    &::after {
+      transition: opacity 0.2s ease;
+    }
+  }
+}
+
+
+/* Popup Search tweaks */
+
+/* sidebar autohide tweaks */
+
+#sidebar {
+  margin-bottom: var(--uc-tweak-rounded-corners-padding) !important;
+  border-bottom-right-radius: var(--uc-tweak-rounded-corners-radius) !important;
+  border-bottom-left-radius: var(--uc-tweak-rounded-corners-radius) !important;
+}
+
+#sidebar-title {
+  padding-inline: 0 !important;
+  padding-top: 2px !important;
+  opacity: 40% !important;
+}
+#sidebar-switcher-target {
+  padding: 0px 0px 2px 0px !important;
+}
+
+/* if this preference is activated in about:config, sidebar width will be increased */
+@media (-moz-bool-pref: "uc.tweak.longer-sidebar") {
+  :root #sidebar-box {
+    --uc-sidebar-hover-width: 250px !important;
+  }
+}
+
+#sidebar-header {
   overflow: hidden;
   color: var(--chrome-color, inherit) !important;
-  padding-inline: 0 !important;
+  padding: 2px 0 2px 0 !important;
+  font-size: 1em !important;
+  font-weight: bold !important;
+  margin-inline-start: calc(
+    var(--uc-tweak-rounded-corners-padding) - 10px
+  ) !important;
+  border-bottom: 0 !important;
+  border-top-right-radius: var(--uc-tweak-rounded-corners-radius) !important;
+}
+
+#sidebar-header #sidebar-switcher-target #sidebar-icon,
+#sidebar-switcher-arrow,
+#sidebar-close.close-icon,
+#sidebar-splitter {
+  visibility: collapse !important;
+}
+
+@media (-moz-bool-pref: "uc.tweak.hide-sidebar-header") {
+  #sidebar-header {
+    visibility: collapse !important;
+  }
 }
 
 #sidebar-header::before,
-#sidebar-header::after{
+#sidebar-header::after {
   content: "";
   display: flex;
   padding-left: 8px;
 }
 
 #sidebar-header,
-#sidebar{
-  transition: min-width var(--uc-autohide-transition-duration) var(--uc-autohide-transition-type) var(--uc-autohide-sidebar-delay) !important;
+#sidebar {
+  transition: min-width var(--uc-autohide-transition-duration)
+    var(--uc-autohide-transition-type) var(--uc-autohide-sidebar-delay) !important;
   min-width: var(--uc-sidebar-width) !important;
   will-change: min-width;
-}
-#sidebar-box:hover > #sidebar-header,
-#sidebar-box:hover > #sidebar{
-  min-width: var(--uc-sidebar-hover-width) !important;
-  transition-delay: 0ms !important;
+  background-color: var(--lwt-accent-color) !important;
 }
 
-.sidebar-panel{
-  background-color: transparent !important;
+.sidebar-panel {
+  background-color: var(--lwt-accent-color) !important;
   color: var(--newtab-text-primary-color) !important;
 }
 
-.sidebar-panel #search-box{
+.sidebar-panel #search-box {
   -moz-appearance: none !important;
-  background-color: rgba(249,249,250,0.1) !important; 
+  background-color: var(--lwt-accent-color) !important;
   color: inherit !important;
-}
-
-/* Add sidebar divider and give it background */
-
-#sidebar,
-#sidebar-header{
-  background-color: inherit !important;
-/*   border-inline: 1px solid rgb(80,80,80); */
-  border-inline-width: 0px 1px;
-}
-
-#sidebar-box:not([positionend]) > :-moz-locale-dir(rtl),
-#sidebar-box[positionend] > *{
-  border-inline-width: 1px 0px;
 }
 
 /* Move statuspanel to the other side when sidebar is hovered so it doesn't get covered by sidebar */
 
-#sidebar-box:not([positionend]):hover ~ #appcontent #statuspanel{
+#sidebar-box:not([positionend]):hover ~ #appcontent #statuspanel {
   inset-inline: auto 0px !important;
 }
-#sidebar-box:not([positionend]):hover ~ #appcontent #statuspanel-label{
+#sidebar-box:not([positionend]):hover ~ #appcontent #statuspanel-label {
   margin-inline: 0px !important;
-  border-left-style: solid !important; 
+  border-left-style: solid !important;
 }
 
-/* ======= =sidebar hover hack =======*/
+
+/* end of sidebar tweaks */
+
+/* Replacing Userchrome Toggle icon with Arc sidebar icon */
+:is(.webextension-browser-action, .eom-addon-button)[data-extensionid="userchrome-toggle@joolee.nl"] .toolbarbutton-icon { list-style-image: url(./icons/userchrome-toggle.svg); }
+
+/* Using Segoe UI Variable font */
+* {font-family: "Segoe UI Variable Display" !important;}
+
+/*  Clean and tight extensions menu */
+#unified-extensions-panel #unified-extensions-view {
+    width: 100% !important;  /*  For firefox v115.x */
+}
+
+#unified-extensions-view{
+    --uei-icon-size: 16px; /*  Change icon size */
+    --firefoxcss-number-of-extensions-in-a-row: 4; /*  Increase to the number of icons you want in one row */
+}
+
+#unified-extensions-view:before{
+  content: "Extensions";
+  text-align: left !important;
+  font-weight: bold !important;
+  padding-top: 9px !important;
+  padding-bottom: 4px !important;
+  padding-left: 14px !important;
+  }
+
+#unified-extensions-view .panel-header,
+#unified-extensions-view .panel-header .panel-header-icon,
+#unified-extensions-view .panel-header + toolbarseparator,
+#unified-extensions-view .panel-subview-body + toolbarseparator,
+#unified-extensions-view #unified-extensions-manage-extensions .toolbarbutton-icon,
+#unified-extensions-view .unified-extensions-item-menu-button.subviewbutton,
+#unified-extensions-view .unified-extensions-item-action-button .unified-extensions-item-contents{
+    visibility: collapse !important;
+}
+
+#unified-extensions-view #unified-extensions-manage-extensions .toolbarbutton-text {
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: center !important;
+    }
+
+#unified-extensions-view .panel-subview-body {
+    padding: 2px !important;
+}
+
+#unified-extensions-view .unified-extensions-item .unified-extensions-item-icon, 
+#unified-extensions-view .unified-extensions-item .toolbarbutton-badge-stack {
+    margin-inline-end: 0px !important;
+}
+
+#unified-extensions-view #overflowed-extensions-list,
+#unified-extensions-view #unified-extensions-area,
+#unified-extensions-view .unified-extensions-list {
+    display: grid !important;
+    grid-template-columns: repeat(var(--firefoxcss-number-of-extensions-in-a-row),auto);
+    justify-items:left !important;
+    align-items:left !important;
+}
+
+#unified-extensions-view .unified-extensions-list .unified-extensions-item,
+#unified-extensions-view .unified-extensions-list{
+     max-width: max-content;
+     max-height: max-content;
+}
+
+#unified-extensions-view #unified-extensions-area {
+/*     padding-top: 0px !important; */
+/*     padding-bottom: 0px !important; */
+/*     border-bottom: 0px solid #aeaeae33 !important; */
+}
+
+#unified-extensions-view .unified-extensions-list {
+/*     border-top: 1px solid #aeaeae33 !important; */
+}
+
+#wrapper-edit-controls:is([place="palette"], 
+[place="panel"]) > #edit-controls, #wrapper-zoom-controls:is([place="palette"], 
+[place="panel"]) > #zoom-controls, :is(panelview, #widget-overflow-fixed-list) .toolbaritem-combined-buttons {
+  margin: 5px !important;
+}
+
+/* end of extensions menu code */
