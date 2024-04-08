@@ -123,6 +123,10 @@
   list-style-image: url("chevron.svg") !important;
 }
 
+#appMenu-report-broken-site-button {
+  list-style-image: url("report.svg") !important;
+}
+
 #PanelUI-menu-button,
 #appMenu-more-button2 {
   list-style-image: url("menu.svg") !important;
@@ -459,7 +463,9 @@
   list-style-image: url("desktop-notification-blocked.svg") !important;
 }
 
-.camera-icon {
+.camera-icon,
+#webRTC-sharingCamera-menu,
+#webrtc-sharing-icon[sharing="camera"] {
   list-style-image: url("camera.svg") !important;
 }
 
@@ -467,7 +473,9 @@
   list-style-image: url("camera-blocked.svg") !important;
 }
 
-.microphone-icon {
+.microphone-icon,
+#webRTC-sharingMicrophone-menu,
+#webrtc-sharing-icon[sharing="microphone"] {
   list-style-image: url("microphone.svg") !important;
 }
 
@@ -475,7 +483,9 @@
   list-style-image: url("microphone-blocked.svg") !important;
 }
 
-.screen-icon {
+.screen-icon,
+#webRTC-sharingScreen-menu,
+#webrtc-sharing-icon[sharing="screen"] {
   list-style-image: url("screen.svg") !important;
 }
 
@@ -951,6 +961,11 @@
 
 #PanelUI-history .panel-header>h1>span::before {
   --header-image: url("history.svg");
+  --uc-enabled: 1;
+}
+
+#report-broken-site-popup-mainView .panel-header>h1>span::before {
+  --header-image: url("report.svg");
   --uc-enabled: 1;
 }
 
