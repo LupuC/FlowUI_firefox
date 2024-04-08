@@ -1,6 +1,9 @@
+
+
 @import url("icons/icons.css");
 @import url("popup-search.css");
 
+/* A) NECCESSITIES */
 /* make theming work */
 #navigator-toolbox {
   --toolbar-bgcolor: transparent;
@@ -43,8 +46,8 @@ See the above repository for updates as well as full license text. */
 :root:is([tabsintitlebar], [sizemode="fullscreen"]) {
   --uc-window-control-width: 138px; /* Space reserved for window controls (Win10) */
   /* Extra space reserved on both sides of the nav-bar to be able to drag the window */
-  --uc-window-drag-space-pre: 30px; /* left side*/
-  --uc-window-drag-space-post: -30px; /* right side*/
+  --uc-window-drag-space-pre: 20px; /* left side*/
+  --uc-window-drag-space-post: -20px; /* right side*/
 }
 
 :root:is([tabsintitlebar][sizemode="maximized"], [sizemode="fullscreen"]) {
@@ -153,6 +156,7 @@ See the above repository for updates as well as full license text. */
   /* Remove the next row if you want tabs to be the top-most row */
   #titlebar{
     order: 2;
+    height: 30px;
   } 
 
   #toolbar-menubar{
@@ -213,9 +217,9 @@ See the above repository for updates as well as full license text. */
   
   /* OR, uncomment the following if you want menubar to appear below content, above tabs toolbar */
 
-  /* add padding to left side of menu bar itmes to align with bookmarks and nav bar */
+  /* add padding to left side of menu bar items to align with bookmarks and nav bar */
   #toolbar-menubar #menubar-items {padding-left: 10px !important;}
-  #toolbar-menubar{ background: transparent !important; position: static; display: flex; margin-top: 0px !important; }
+  #toolbar-menubar{ background: --lwt-accent-color !important; position: static; display: flex; margin-top: 0px !important; }
  
 
   /* set to "column-reverse" (without quotes) if you want tabs above menubar with the above option */
@@ -240,14 +244,14 @@ See the above repository for updates as well as full license text. */
 
 #TabsToolbar .titlebar-buttonbox-container {
 /*   background: purple !important; */
-  margin-top: 3px !important;
+  margin-top: 0px !important;
   margin-bottom: 0px !important;
 }
 
 /* prep for window controls + move nav-bar into now empty tab bar */
 #nav-bar {
 /*   margin-left: 84px !important; */
-  margin-bottom:-44px !important;
+  margin-bottom:-30px !important;
 /*   margin-right: 144px !important; */
 /*   background: purple !important; */
 }
@@ -274,26 +278,27 @@ See the above repository for updates as well as full license text. */
 
 /* ----------------------------------------------------------- */
 
-/* align window controls on tab bar and menu bar */
+/* Using Segoe UI Variable font */
+* {font-family: "Segoe UI Variable Display" !important;}
 
 /* ============================================================ */
 
-/* Variables */
+/* B) NAVBAR & URLBAR */
+
 :root {
-  --urlbar-min-height: 24px !important;
   --urlbarView-item-inline-padding: calc(1px + var(--uc-urlbar-inline-padding) + var(--uc-urlbar-icon-inline-padding)) !important;
   --urlbar-icon-border-radius: 99px !important;
   --urlbar-icon-padding: calc(var(--toolbarbutton-inner-padding) - 2px) !important;
-  --urlbar-margin-inline: 2px !important;
+  --urlbar-margin-inline: 3px !important;
   --identity-box-margin-inline: 6px !important;
-  --uc-urlbar-icon-inline-padding: 2px !important;
+  --uc-urlbar-icon-inline-padding: 3px !important;
   --uc-urlbar-inline-padding: 6px;
   --uc-urlbar-shadow: 0 0 0px rgb(0 0 0 / .1);
    --urlbarView-rich-suggestion-default-icon-size: 32px !important;
 
   /* urlbar height */
   & #urlbar-container {
-    --urlbar-container-height: calc(8px + 16px + var(--toolbarbutton-inner-padding) * 2) !important;
+    --urlbar-container-height: calc(8px + 14px + var(--toolbarbutton-inner-padding) * 2) !important;
   }
 
   & #urlbar {
@@ -356,7 +361,9 @@ See the above repository for updates as well as full license text. */
 
   & .urlbarView-body-inner {
     width: 100% !important;
-    margin-inline: 0 !important;
+    margin-inline-start: 5px !important;
+    margin-inline-end: 5px !important;
+    margin-block-start: 5px !important;
   }
 
   /* Remove padding from top of URL bar results, not needed as URL bar input already has padding. */
@@ -370,7 +377,7 @@ See the above repository for updates as well as full license text. */
   padding-block: 0 !important;
   border: none !important;
   border-radius: 8px !important;
-  margin-inline: 2px !important;
+  margin-inline: 3px !important;
   
   /* Vertically align search suggestion thumbnail images. */
   &[rich-suggestion] > .urlbarView-row-inner > .urlbarView-favicon {
@@ -381,8 +388,8 @@ See the above repository for updates as well as full license text. */
 
 /* Keep URL bar in place when expanding. */
 #urlbar[breakout][breakout-extend] {
-  left: 0 !important;
-  width: 100% !important;
+/*  left: 0 !important; */
+/*  width: 98% !important; */
 }
 
 /* Search engine selector */
@@ -425,9 +432,11 @@ See the above repository for updates as well as full license text. */
 #urlbar-go-button,
 .search-go-button,
 #tracking-protection-icon-container,
-#identity-icon-box {
-  padding-inline: var(--uc-urlbar-icon-inline-padding) !important;
-  width: calc(var(--uc-urlbar-icon-inline-padding) * 2 + 16px) !important;
+#identity-icon-box,
+#identity-permission-box {
+  padding-inline: calc(var(--uc-urlbar-icon-inline-padding) + 2px) !important;
+/*  width: calc(var(--uc-urlbar-icon-inline-padding) * 2 + 14px) !important; */
+  scale: 0.9 !important;
 }
 
 /* Site information and Permissions buttons. */
@@ -526,16 +535,462 @@ See the above repository for updates as well as full license text. */
   }
 }
 
+/* C) POPUP & CONTEXT MENU */
 
-/* Popup Search tweaks */
+:root {
+  --panel-subview-body-padding: 2px 0 !important;
+  --arrowpanel-border-radius: 8px !important;
+  --arrowpanel-menuitem-border-radius: 4px !important;
+  --arrowpanel-menuitem-margin: var(--uc-arrowpanel-menuitem-margin-block) var(--uc-arrowpanel-menuitem-margin-inline) !important;
+  --arrowpanel-menuitem-padding-block: 6px !important;
+  --arrowpanel-menuitem-padding-inline: 10px !important;
+  --uc-arrowpanel-menuicon-margin-inline: 14px;
+  --uc-arrowpanel-menuitem-margin-inline: 4px;
+  --uc-arrowpanel-menuitem-margin-block: 2px;
+  --panel-separator-margin-vertical: 2px !important;
+  --panel-separator-margin-horizontal: 0 !important;
 
-/* sidebar autohide tweaks */
+  --uc-panel-zoom-button-padding: 8px;
+  --uc-panel-zoom-button-inline-padding: 9px;
+  --uc-panel-zoom-padding-block: calc(var(--panel-separator-margin-vertical) + var(--uc-arrowpanel-menuitem-margin-block));
 
-#sidebar {
-  margin-bottom: var(--uc-tweak-rounded-corners-padding) !important;
-  border-bottom-right-radius: var(--uc-tweak-rounded-corners-radius) !important;
-  border-bottom-left-radius: var(--uc-tweak-rounded-corners-radius) !important;
+  --uc-autocomplete-panel-menuitem-margin: 4px;
+  --uc-autocomplete-panel-menuicon-padding-inline: 14px;
+  --uc-autocomplete-panel-separator-margin-vertical: 4px;
+
+  --uc-permission-itemcontainer-padding-block: 8px;
+  --uc-permission-item-margin-block: 4px;
+  --uc-permission-item-padding-inline: 16px;
+
+  --uc-contextmenu-border-radius: 8px;
+  --uc-contextmenu-padding: calc(4px - var(--uc-contextmenu-menuitem-border-width)) 0;
+  --uc-contextmenu-menuitem-border-radius: calc(4px + var(--uc-contextmenu-menuitem-border-width));
+  --uc-contextmenu-menuitem-padding-block: 6px;
+  --uc-contextmenu-menuitem-padding-inline: 10px;
+  --uc-contextmenu-menuitem-border-width: 2px;
+  --uc-contextmenu-menuicon-margin-inline: 12px;
+  --uc-contextmenu-menuitem-margin-inline: calc(4px - var(--uc-contextmenu-menuitem-border-width));
+  --uc-contextmenu-menuitem-margin-block: 0px;
+  --uc-contextmenu-menuitem-margin: var(--uc-contextmenu-menuitem-margin-block) var(--uc-contextmenu-menuitem-margin-inline);
+  --uc-contextmenu-separator-vertical: calc(4px - var(--uc-contextmenu-menuitem-border-width));
+  --uc-contextmenu-separator-horizontal: 0;
 }
+
+/* app menu */
+.addon-banner-item,
+.panel-banner-item {
+  margin: 2px 4px 2px !important;
+  padding-inline: 4px 12px !important;
+  padding-block: var(--arrowpanel-menuitem-padding-block) !important;
+  border-radius: var(--arrowpanel-menuitem-border-radius) !important;
+}
+
+#appMenu-fxa-label2 label,
+#PanelUI-fxa-menu-syncnow-button label {
+  margin-block: 0 !important;
+}
+
+.widget-overflow-list .toolbarbutton-1:not(.toolbarbutton-combined) > .toolbarbutton-text,
+.subviewbutton:not(#appMenu-zoom-controls > .subviewbutton) > .toolbarbutton-icon + .toolbarbutton-text,
+#appMenu-fxa-label2 > vbox {
+  padding-inline-start: var(--uc-arrowpanel-menuicon-margin-inline) !important;
+}
+
+/* special case menuitems with no icons */
+#appMenu-zoom-controls > .toolbarbutton-text,
+#fxa-manage-account-button > vbox,
+#PanelUI-fxa-menu-syncnow-button > hbox {
+  padding-inline-start: calc(16px + var(--uc-arrowpanel-menuicon-margin-inline)) !important;
+}
+
+.subviewbutton > .toolbarbutton-icon {
+  width: 16px !important;
+}
+
+/* firefox profile avatar in appmenu */
+#appMenu-fxa-label2::before {
+  content: "";
+  display: flex;
+  height: 16px;
+  width: 16px;
+  background: var(--avatar-image-url) 0/16px;
+  scale: 1.25;
+  border-radius: 99px;
+}
+
+/* disable proton account separator */
+#appMenu-fxa-separator {
+  border-image: none !important;
+}
+
+#appMenu-fxa-status2:not([fxastatus]) {
+  padding-block: 0 !important;
+}
+
+#appMenu-fxa-status2:not([fxastatus]) > #appMenu-fxa-label2 {
+  margin-inline-end: calc(var(--arrowpanel-menuitem-padding-inline) * -1) !important;
+}
+
+/* zoom controls */
+#appMenu-zoom-controls {
+  border-top: 1px solid var(--panel-separator-color) !important;
+  padding-inline: calc(var(--arrowpanel-menuitem-padding-inline) + var(--uc-arrowpanel-menuitem-margin-inline)) var(--uc-arrowpanel-menuitem-margin-inline) !important;
+  padding-block-start: calc(var(--uc-panel-zoom-padding-block) + 3px) !important;
+  padding-block-end: 0 !important;
+  margin: var(--panel-separator-margin-vertical) 0 calc(var(--panel-separator-margin-vertical) * -1) !important;
+}
+
+#appMenu-zoom-controls > .subviewbutton {
+  padding: var(--uc-panel-zoom-button-padding) var(--uc-panel-zoom-button-inline-padding) !important;
+  margin: 0 !important;
+}
+
+#appMenu-zoom-controls > #appMenu-zoomReset-button2 {
+  padding: var(--uc-panel-zoom-button-padding) calc(var(--uc-panel-zoom-button-padding) / 2) !important;
+}
+
+/* #appMenu-zoomReduce-button2, */
+#appMenu-zoom-controls > #appMenu-fullscreen-button2 {
+  margin-left: calc((var(--panel-separator-margin-vertical) + var(--uc-arrowpanel-menuitem-margin-block)) * 2 + 1px) !important;
+}
+
+#appMenu-zoom-controls > #appMenu-fullscreen-button2::before {
+  content: "";
+  border-inline-start: 1px solid var(--panel-separator-color);
+  display: block;
+  position: relative;
+  height: 32px;
+  margin-block: calc(var(--uc-panel-zoom-button-padding) * -1);
+  transform: translateX(calc(var(--uc-panel-zoom-button-inline-padding) * -1 - (var(--panel-separator-margin-vertical) + var(--uc-arrowpanel-menuitem-margin-block)) - 1px));
+}
+
+#appMenu-zoomReset-button2 {
+  height: calc(16px + var(--uc-panel-zoom-button-padding) * 2) !important;
+  min-height: calc(16px + var(--uc-panel-zoom-button-padding) * 2) !important;
+}
+
+#appMenu-zoomReduce-button2:not([disabled], [open], :active):is(:hover),
+#appMenu-zoomEnlarge-button2:not([disabled], [open], :active):is(:hover),
+#appMenu-fullscreen-button2:not([disabled], [open], :active):is(:hover),
+#appMenu-zoomReset-button2:not([disabled], [open], :active):is(:hover) {
+  background-color: var(--panel-item-hover-bgcolor) !important;
+}
+
+#appMenu-zoomReduce-button2:not([disabled]):is([open], :hover:active),
+#appMenu-zoomEnlarge-button2:not([disabled]):is([open], :hover:active),
+#appMenu-fullscreen-button2:not([disabled]):is([open], :hover:active),
+#appMenu-zoomReset-button2:not([disabled]):is([open], :hover:active) {
+  background-color: var(--panel-item-active-bgcolor) !important;
+}
+
+#appMenu-zoomReduce-button2 > .toolbarbutton-icon,
+#appMenu-zoomEnlarge-button2 > .toolbarbutton-icon {
+  fill: currentColor !important;
+  stroke: none !important;
+}
+
+#appMenu-zoomReset-button2 > .toolbarbutton-text,
+#appMenu-fullscreen-button2 > .toolbarbutton-icon {
+  background-color: transparent !important;
+  padding: 0 !important;
+}
+
+.subviewbutton[shortcut]::after {
+  opacity: 0.7 !important;
+}
+
+#widget-overflow-mainView .panel-subview-body {
+  padding-bottom: 0 !important;
+}
+
+.PanelUI-subView > .panel-header + toolbarseparator {
+  margin-bottom: 0 !important;
+}
+
+.PanelUI-subView > .panel-header + toolbarseparator + .panel-subview-body {
+  padding-top: var(--panel-separator-margin-vertical) !important;
+}
+
+#identity-popup-security-button {
+  margin-bottom: var(--panel-separator-margin-vertical) !important;
+}
+
+#permission-popup-mainView-panel-header,
+#identity-popup-mainView-panel-header,
+#protections-popup-mainView-panel-header,
+.panel-header {
+  min-height: calc((var(--arrowpanel-menuitem-padding-block) + 4px) * 2 + 16px) !important;
+}
+
+  /* context menu */
+@media {
+  menupopup:not(.PanelUI-subView),
+  menupopup:not(.PanelUI-subView) menuitem,
+  menupopup:not(.PanelUI-subView) menu,
+  menupopup:not(.PanelUI-subView) menuseparator,
+  panel:not(#PopupSearchAutoComplete) {
+    appearance: none !important;
+  }
+
+  menupopup:not(.PanelUI-subView),
+  #PopupAutoComplete,
+  menulist > menupopup:not(.PanelUI-subView) > menucaption {
+    -moz-window-shadow: none !important;
+    background: 0 !important;
+    border: 0 !important;
+    color: var(--arrowpanel-color) !important;
+  }
+
+  .popup-internal-box,
+  #PopupAutoComplete > .autocomplete-richlistbox,
+  .menupopup-arrowscrollbox {
+    background: var(--arrowpanel-background) !important;
+    border: 1px solid var(--arrowpanel-border-color) !important;
+  }
+
+  /* make room for menu shadow */
+  menupopup:not(.PanelUI-subView) {
+    padding: 4px 12px 20px !important;
+    margin: -6px -12px -16px !important;
+  }
+
+  /* cut off shadow so it doesn't get in the way of the menubar items */
+  menubar menupopup {
+    padding: 1px 8px 20px !important;
+    margin: -1px -4px -16px !important;
+  }
+
+  menupopup {
+    --uc-margin: 0 !important;
+    --uc-outline-color: #0001;
+    --uc-box-shadow:
+      0 8px 12px #0003,
+      0 4px 5px #0002,
+      0 2px 4px #0002;
+  }
+
+  @media (prefers-color-scheme:dark) {
+    menupopup {
+      --uc-outline-color: #0002;
+      --uc-box-shadow:
+        0 8px 12px #0003,
+        0 4px 5px #0003,
+        0 2px 4px #0002;
+    }
+  }
+
+  /* use default shadow for subview menupopup (eg. bookmarks) */
+  menupopup.PanelUI-subView {
+    --uc-box-shadow: 0 0 0 1px var(--panel-border-color);
+    --uc-margin: 1px !important;
+    margin-top: -5px !important;
+  }
+
+  .menupopup-arrowscrollbox {
+    box-shadow: var(--uc-box-shadow) !important;
+    outline: .5px solid var(--uc-outline-color) !important;
+  }
+
+  .popup-internal-box {
+    margin: 0 !important;
+  }
+
+  .popup-internal-box,
+  .menupopup-arrowscrollbox {
+    padding: var(--uc-contextmenu-padding) !important;
+    border-radius: var(--uc-contextmenu-border-radius) !important;
+    color: inherit !important;
+  }
+
+  menupopup menu[disabled="true"],
+  menupopup menuitem[disabled="true"] {
+    color: var(--panel-disabled-color) !important;
+    background: none !important;
+  }
+
+  menupopup menu:hover:not([disabled=true]),
+  menupopup menuitem:hover:not([disabled=true]),
+  menupopup menu[_moz-menuactive]:not([disabled=true]),
+  menupopup menuitem[_moz-menuactive]:not([disabled=true]) {
+    background-color: var(--panel-item-hover-bgcolor) !important;
+    color: inherit !important;
+  }
+
+  menupopup menuitem:hover:active:not([disabled=true]),
+  menupopup menu:hover:active:not([disabled=true]) {
+    background-color: var(--panel-item-active-bgcolor) !important;
+    color: inherit !important;
+  }
+
+  menupopup menuseparator,
+  panel menuseparator,
+  #PopupSearchAutoComplete .searchbar-separator {
+    margin: var(--uc-contextmenu-separator-vertical) 0 !important;
+    padding: 0 !important;
+    background: none !important;
+    border-top: 1px solid var(--panel-separator-color) !important;
+
+    &::before {
+      content: unset !important;
+    }
+  }
+
+  #PlacesToolbar menupopup[placespopup="true"] menuseparator::before {
+    display: none !important;
+  }
+
+  menupopup menu,
+  menupopup menuitem,
+  menupopup menucaption,
+  #PopupAutoComplete > richlistbox > richlistitem,
+  #PopupSearchAutoComplete .autocomplete-richlistitem {
+    padding: var(--uc-contextmenu-menuitem-padding-block) var(--uc-contextmenu-menuitem-padding-inline) !important;
+    margin: var(--uc-contextmenu-menuitem-margin) !important;
+    border-radius: var(--uc-contextmenu-menuitem-border-radius) !important;
+    border: var(--uc-contextmenu-menuitem-border-width) solid transparent !important;
+    background-clip: padding-box !important;
+    min-height: calc(16px + (var(--uc-contextmenu-menuitem-padding-block) + var(--uc-contextmenu-menuitem-border-width)) * 2) !important;
+  }
+
+  :not(:not(menubar)>menu, #ContentSelectDropdown) > menupopup > menuitem:not(.menuitem-iconic, [type="checkbox"], [type="radio"], .in-menulist, .in-menulist menuitem, .unified-nav-current),
+  :not(:not(menubar)>menu, #ContentSelectDropdown) > menupopup > menu:not(.menu-iconic, [type="checkbox"], [type="radio"], .in-menulist, .in-menulist menu, .unified-nav-current),
+  :not(:not(menubar)>menu, #ContentSelectDropdown) > menupopup > menucaption {
+    padding-inline-start: calc(var(--uc-contextmenu-menuitem-padding-inline) + 16px + var(--uc-contextmenu-menuicon-margin-inline)) !important;
+  }
+
+  .menu-iconic-icon {
+    margin-block: 0 !important;
+    margin-inline-end: 0 !important;
+    margin-inline-start: 0 !important;
+  }
+
+  menu > .menu-iconic-text,
+  menuitem > .menu-iconic-text,
+  /* Used for vertical context navigation tweak. */
+  #context-navigation > .menuitem-iconic::after {
+    padding-inline-start: var(--uc-contextmenu-menuicon-margin-inline) !important;
+  }
+
+  .menu-text,
+  .menu-iconic-text {
+    margin-inline-start: 0 !important;
+    padding-block: 0 !important;
+  }
+
+  .menu-accel,
+  .menu-iconic-accel {
+    margin-inline-end: 0 !important;
+    padding-block: 0 !important;
+    opacity: 0.7 !important;
+  }
+
+  .menu-iconic > .menu-iconic-left,
+  .menuitem-iconic > .menu-iconic-left {
+    padding-inline-end: 0 !important;
+    padding-block: 0 !important;
+  }
+
+  menuitem:is(.menuitem-iconic:not([data-usercontextid]), [type="checkbox"], [type="radio"], [checked], [selected]) .menu-iconic-icon {
+    -moz-context-properties: fill !important;
+    fill: currentColor !important;
+  }
+
+  .menu-right,
+  .menu-accel-container {
+    appearance: none !important;
+    margin-inline-end: 0 !important;
+    -moz-context-properties: fill;
+    fill: currentColor !important;
+  }
+
+  menupopup menuitem:is([type="checkbox"], [type="radio"]) .menu-iconic-icon,
+  menulist > menupopup > menuitem .menu-iconic-icon,
+  menu .menu-right {
+    height: 16px !important;
+    width: 16px !important;
+  }
+
+  menulist > menupopup > menuitem:is([checked="true"], [selected="true"])::before,
+  menupopup > menuitem::before,
+  menupopup > menu::before,
+  menupopup > menuitem::after {
+    display: none !important;
+  }
+
+  menuitem:is([type="checkbox"], [checked="true"], [type="radio"]) > .menu-iconic-left > .menu-iconic-icon {
+    display: flex !important;
+  }
+
+  menuitem[checked="true"] > .menu-iconic-left,
+  menu > .menu-iconic-left,
+  menuitem > .menu-iconic-left {
+    margin: 0 !important;
+    padding: 0 !important
+  }
+
+  #context-navigation:not([hidden]) {
+    padding: 0 !important;
+    --menuitem-min-width: calc(16px + var(--uc-contextmenu-menuitem-padding-inline) * 2) !important;
+    min-width: calc(4 * var(--menuitem-min-width));
+  }
+
+  #context-navigation > .menuitem-iconic > .menu-iconic-left > .menu-iconic-icon {
+    width: 16px !important;
+    height: 16px !important;
+    padding: 0 !important;
+  }
+
+  #context-navigation {
+    margin-inline: var(--uc-contextmenu-menuitem-margin-inline) !important;
+  }
+
+  #context-navigation > .menuitem-iconic {
+    justify-content: center !important;
+  }
+
+  #context-navigation > .menuitem-iconic {
+    margin: 0 !important;
+  }
+
+  #context-navigation > .menuitem-iconic {
+    flex-grow: 1 !important;
+    width: unset !important;
+  }
+
+  #context-navigation > .menuitem-iconic[_moz-menuactive="true"] > .menu-iconic-left > .menu-iconic-icon {
+    background-color: transparent !important;
+  }
+
+  #context-bookmarkpage[starred] .menu-iconic-icon {
+    fill: var(--lwt-toolbarbutton-icon-fill-attention, var(--toolbarbutton-icon-fill-attention, currentColor)) !important;
+  }
+
+  @media (not (-moz-bool-pref: "uc.tweak.smaller-context-menu-text")) and (-moz-platform: windows) {
+    .menu-text,
+    .menu-iconic-text,
+    panel .toolbarbutton-text,
+    #PopupSearchAutoComplete .ac-title,
+    /* Used for vertical context navigation tweak. */
+    #context-navigation > .menuitem-iconic::after {
+      margin-inline-start: 0 !important;
+      margin-block: -3px -1px !important;
+      padding-block: 0 !important;
+    }
+
+    .menu-text,
+    .menu-iconic-text,
+    panel .toolbarbutton-text,
+    #appMenu-fxa-status2,
+    .panel-header,
+    #PopupSearchAutoComplete,
+    /* Used for vertical context navigation tweak. */
+    #context-navigation > .menuitem-iconic::after {
+      font-size: 13.6px !important;
+    }
+  }
+}
+
+/* D) SIDEBAR */
 
 #sidebar-title {
   padding-inline: 0 !important;
@@ -544,13 +999,6 @@ See the above repository for updates as well as full license text. */
 }
 #sidebar-switcher-target {
   padding: 0px 0px 2px 0px !important;
-}
-
-/* if this preference is activated in about:config, sidebar width will be increased */
-@media (-moz-bool-pref: "uc.tweak.longer-sidebar") {
-  :root #sidebar-box {
-    --uc-sidebar-hover-width: 250px !important;
-  }
 }
 
 #sidebar-header {
@@ -588,10 +1036,6 @@ See the above repository for updates as well as full license text. */
 
 #sidebar-header,
 #sidebar {
-  transition: min-width var(--uc-autohide-transition-duration)
-    var(--uc-autohide-transition-type) var(--uc-autohide-sidebar-delay) !important;
-  min-width: var(--uc-sidebar-width) !important;
-  will-change: min-width;
   background-color: var(--lwt-accent-color) !important;
 }
 
@@ -616,16 +1060,8 @@ See the above repository for updates as well as full license text. */
   border-left-style: solid !important;
 }
 
+/* E) EXTENSIONS MENU */ 
 
-/* end of sidebar tweaks */
-
-/* Replacing Userchrome Toggle icon with Arc sidebar icon */
-:is(.webextension-browser-action, .eom-addon-button)[data-extensionid="userchrome-toggle@joolee.nl"] .toolbarbutton-icon { list-style-image: url(./icons/userchrome-toggle.svg); }
-
-/* Using Segoe UI Variable font */
-* {font-family: "Segoe UI Variable Display" !important;}
-
-/*  Clean and tight extensions menu */
 #unified-extensions-panel #unified-extensions-view {
     width: 100% !important;  /*  For firefox v115.x */
 }
@@ -699,5 +1135,3 @@ See the above repository for updates as well as full license text. */
 [place="panel"]) > #zoom-controls, :is(panelview, #widget-overflow-fixed-list) .toolbaritem-combined-buttons {
   margin: 5px !important;
 }
-
-/* end of extensions menu code */
