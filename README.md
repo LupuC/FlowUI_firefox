@@ -6,6 +6,7 @@ Additional features:
 * Fluent icons & Ms Edge-like hamburger menu/context menu styling (derived from Edge-Frfox).
 * Pop-up searchbar (derived from Shina-Fox) | Enable by adding new Boolean preference in `about:config`: `uc.tweak.popup-search`
 * Multi-panel Sidebery setup | Enable by putting codes from [sidebery-css-style](https://github.com/KiKaraage/ArcWTF/blob/main/sidebery-css-style) onto the Sidebery styles editor.
+* Suggested addons to use: [Adaptive Tab Bar Color](https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour) for adaptive theming | [Gesturefy](https://github.com/Robbendebiene/Gesturefy) for easier page navigations, less clicks | [MaxFocus Link Preview](https://addons.mozilla.org/en-US/firefox/addon/maxfocus-link-preview/reviews/), alternatives to Peek features in Arc Browser
 
 ![Screenshot 1, general look](https://github.com/KiKaraage/FrameUIforFirefox/assets/10529881/42e42d1f-8830-442a-8e64-b725cd6da508)
 ![Screenshot 2, pop-up searchbar](https://github.com/KiKaraage/FrameUIforFirefox/assets/10529881/9f35fee2-a9b4-477c-9747-8d01d3978eb5)
