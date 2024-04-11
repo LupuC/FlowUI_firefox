@@ -17,3 +17,9 @@ ver. 0.2
 - When browser starts, the sidebar background color changes 2-3 times (flicker).
 - Sidebar top right corner has a roundness.
 
+## Useful shortcuts
+- CTRL+T - creates a new tab (alternative - ctrl+space, from sidebery)
+- CTRL+E - open searchbar (you can use @google, to search things on google, or @wikipedia, @bing and more. check the firefox settings)
+- CTRL+NUMBER(1-9) - switch the tab to specific number
+- CTRL+TAB - switch tabs (cycle)
+- CTRL+W - close tab
