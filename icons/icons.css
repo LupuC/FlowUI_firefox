@@ -123,10 +123,6 @@
   list-style-image: url("chevron.svg") !important;
 }
 
-#appMenu-report-broken-site-button {
-  list-style-image: url("report.svg") !important;
-}
-
 #PanelUI-menu-button,
 #appMenu-more-button2 {
   list-style-image: url("menu.svg") !important;
@@ -463,9 +459,7 @@
   list-style-image: url("desktop-notification-blocked.svg") !important;
 }
 
-.camera-icon,
-#webRTC-sharingCamera-menu,
-#webrtc-sharing-icon[sharing="camera"] {
+.camera-icon {
   list-style-image: url("camera.svg") !important;
 }
 
@@ -473,9 +467,7 @@
   list-style-image: url("camera-blocked.svg") !important;
 }
 
-.microphone-icon,
-#webRTC-sharingMicrophone-menu,
-#webrtc-sharing-icon[sharing="microphone"] {
+.microphone-icon {
   list-style-image: url("microphone.svg") !important;
 }
 
@@ -483,9 +475,7 @@
   list-style-image: url("microphone-blocked.svg") !important;
 }
 
-.screen-icon,
-#webRTC-sharingScreen-menu,
-#webrtc-sharing-icon[sharing="screen"] {
+.screen-icon {
   list-style-image: url("screen.svg") !important;
 }
 
@@ -574,7 +564,7 @@
 }
 
 /* disable context menu icons when this tweak is applied */
-@media{
+@media not (-moz-bool-pref: "uc.tweak.revert-context-menu") {
 
   /* Context Menu Icons */
   menupopup>menuitem:is([checked="true"], [selected="true"]) .menu-iconic-icon {
@@ -961,11 +951,6 @@
 
 #PanelUI-history .panel-header>h1>span::before {
   --header-image: url("history.svg");
-  --uc-enabled: 1;
-}
-
-#report-broken-site-popup-mainView .panel-header>h1>span::before {
-  --header-image: url("report.svg");
   --uc-enabled: 1;
 }
 

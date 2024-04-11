@@ -130,8 +130,11 @@
 @-moz-document url(chrome://browser/content/browser.xhtml){
   
   #titlebar{ -moz-appearance: none !important; }
+  
+  
+/* Makes the navbar/ topbar go up. uncomment to go down */
 
-  #navigator-toolbox > div{ display: contents }
+/*   #navigator-toolbox > div{ display: contents }
   .global-notificationbox,
   #mainPopupSet,
   #browser,
@@ -139,7 +142,7 @@
   #tab-notification-deck{
     order: -1;
   }
-
+ */
   /* Remove the next row if you want tabs to be the top-most row */
   #titlebar{
     order: 2;
@@ -150,7 +153,7 @@
     position: fixed;
     display: flex;
     width: 100vw;
-    top: 0px;
+    bottom: 0px;
     -moz-window-dragging: drag;
   }
   /* Remove bottom border that won't do anything useful when at bottom of the window */
@@ -282,6 +285,8 @@
   }
 
   & #urlbar {
+    background-color: #00000017;
+    border-radius: 50px;
     --urlbar-toolbar-height: calc(5px + 16px + var(--toolbarbutton-inner-padding) * 2) !important;
     --urlbar-height: calc(16px + var(--toolbarbutton-inner-padding) * 2) !important;
     --urlbar-min-height: calc(16px + var(--toolbarbutton-inner-padding) * 2) !important;
@@ -308,7 +313,7 @@
 
   /* Appearance when the URL bar is expanded. */
   #urlbar[open] & {
-    border-radius: 8px !important;
+    border-radius: 4px !important;
     border-color: transparent !important;
     outline: 0px solid var(--arrowpanel-border-color) !important;
 
