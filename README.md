@@ -1,6 +1,6 @@
 # FlowUI, a custom firefox theme.
 
-Forked from [FrameUI for Firefox](https://github.com/KiKaraage/FrameUIforFirefox).
+For sidebar (sideberry) and pop up search, see the repo where I froked this from: [FrameUI for Firefox](https://github.com/KiKaraage/FrameUIforFirefox).
 
 ## Changelog
 ```
@@ -29,3 +29,4 @@ ver. 0.2
 ## Photos
 ![image](https://github.com/LupuC/FlowUI_firefox/assets/62475718/79563749-4b9a-44d5-ad3f-2b05fcbbd095)
 ![image](https://github.com/LupuC/FlowUI_firefox/assets/62475718/4bb0677e-341d-40df-9362-23b53703c990)
+![image](https://github.com/LupuC/FlowUI_firefox/assets/62475718/a4ba36ab-9dfe-408e-8b3c-b6dd3605abba)
