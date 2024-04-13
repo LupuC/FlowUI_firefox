@@ -28,3 +28,4 @@ ver. 0.2
 
 ## Photos
 ![image](https://github.com/LupuC/FlowUI_firefox/assets/62475718/79563749-4b9a-44d5-ad3f-2b05fcbbd095)
+![image](https://github.com/LupuC/FlowUI_firefox/assets/62475718/4bb0677e-341d-40df-9362-23b53703c990)
