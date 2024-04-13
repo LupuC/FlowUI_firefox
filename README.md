@@ -16,6 +16,7 @@ ver. 0.2
 ## Known issues
 - When browser starts, the sidebar background color changes 2-3 times (flicker).
 - Sidebar top right corner has a roundness.
+- If you use topbar bookmarks, it will overlap with the url, and it's buggy. Use sideberry's bottom left bookmarks.
 
 ## Useful shortcuts
 - CTRL+T - creates a new tab (alternative - ctrl+space, from sidebery)
@@ -23,3 +24,7 @@ ver. 0.2
 - CTRL+NUMBER(1-9) - switch the tab to specific number
 - CTRL+TAB - switch tabs (cycle)
 - CTRL+W - close tab
+- F1 - toggle sidebar
+
+## Photos
+![image](https://github.com/LupuC/FlowUI_firefox/assets/62475718/79563749-4b9a-44d5-ad3f-2b05fcbbd095)
