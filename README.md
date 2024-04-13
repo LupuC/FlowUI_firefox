@@ -9,7 +9,7 @@ ver. 0.1:
 * Add a bg and border radius to the url bar (to be able to see where the url bar starts and ends).
 
 ver. 0.2
-* Added the arc border and roundness window.
+* Added the arc-like border and roundness to window.
 
 ```
 
